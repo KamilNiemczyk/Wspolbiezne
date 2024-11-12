@@ -9,7 +9,7 @@ def send_signal(signal_number):
         print("Server is not running")
         return
     with open(server_fifo, "w") as server_fifo_path:
-        server_fifo_path.write(str(signal_number))
+        server_fifo_path.write(f"{signal_number}")
 
 
 signal.signal(signal.SIGHUP, lambda signum, frame: send_signal(signum))
