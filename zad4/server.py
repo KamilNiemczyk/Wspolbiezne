@@ -2,7 +2,7 @@ import time
 import os
 import json
 import threading
-
+import signal
 database = {
     1 : "Witam",
     2 : "Guten Tag",
@@ -26,6 +26,23 @@ def handle_client_req(client_queue, requested_id):
             os.unlink(client_queue)
     except Exception as e:
         print(str(e))
+
+# def handle_signal(signal):
+#     print(f"Signal {signal} received")
+#     if signal == 1:
+#         print("SIGHUP")
+#     elif signal == 15:
+#         print("SIGTERM")
+#     elif signal == 10:
+#         os.unlink(server_fifo)
+#         print("Koniec dzialania seerwera")
+#         exit(0)
+#     else:
+#         print("Nieznany sygnal")
+
+# signal.signal(signal.SIGHUP, handle_signal(1))
+# signal.signal(signal.SIGTERM, handle_signal(15))
+# signal.signal(signal.SIGUSR1, handle_signal(10))
 
 
 def main():
@@ -56,3 +73,5 @@ def main():
                 print(str(e))
 
 main()
+##ps aux
+##kill -1 PID
