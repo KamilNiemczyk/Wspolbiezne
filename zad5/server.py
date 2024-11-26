@@ -1,7 +1,8 @@
 import sysv_ipc
 import time 
 import os
-import signal 
+import signal
+import sys
 
 dictionary = {
     "czerwony": "red",
@@ -36,12 +37,16 @@ def main():
     output_queue = sysv_ipc.MessageQueue(key_output_queue, sysv_ipc.IPC_CREAT)
 
     signal.signal(signal.SIGINT, signal_handler)
-
+    print("Server is running")
     while True:
+
         message, pid = input_queue.receive()
+        time.sleep(3)
+        print(f"Received message {message} from {pid}")
         message = message.decode("utf-8")
         translated = dictionary.get(message, "Nie znam takiego słowa")
         output_queue.send(translated.encode("utf-8"), type=pid)
+        print(f"Sent translation {translated} to {pid}")
         
 main()
 
