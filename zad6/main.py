@@ -1,5 +1,4 @@
 import sysv_ipc
-import time
 
 
 key = 11
